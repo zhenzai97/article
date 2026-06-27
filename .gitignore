@@ -1,6 +1,10 @@
 
 HELP.md
 target/
+
+# 本地私密配置（JWT 密钥、数据库密码等）
+src/main/resources/application-local.yml
+application-local.yml
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

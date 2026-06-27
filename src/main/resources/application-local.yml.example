@@ -1,0 +1,9 @@
+# 本地私密配置模板（可提交到仓库）
+# 使用方式：复制本文件为 application-local.yml，并填写真实密钥
+#   cp application-local.yml.example application-local.yml
+
+jwt:
+  secret: your-256-bit-secret-key-change-in-production
+  expire: 86400000
+  header: Authorization
+  token-prefix: "Bearer "

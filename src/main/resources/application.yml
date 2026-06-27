@@ -5,6 +5,9 @@ spring:
   # 默认 dev 环境
   profiles:
     active: dev
+  # 本地私密配置（application-local.yml 已 git 忽略，勿提交）
+  config:
+    import: optional:classpath:application-local.yml
   # 支持 swagger3
   mvc:
     pathmatch:
@@ -99,13 +102,3 @@ knife4j:
         api-rule: package
         api-rule-resources:
           - com.springbootinit.controller
-
-jwt:
-  # 签名密钥（生产环境务必替换，且不要提交到公开仓库）
-  secret: your-256-bit-secret-key-change-in-production
-  # Access Token 过期时间（毫秒），示例：24 小时
-  expire: 86400000
-  # Token 请求头名称（可选，默认 Authorization）
-  header: Authorization
-  # Token 前缀（可选，默认 Bearer ）
-  token-prefix: "Bearer "

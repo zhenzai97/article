@@ -35,11 +35,8 @@ knife4j:
     password: 123456
 
 jwt:
-  # 签名密钥（生产环境务必替换，且不要提交到公开仓库）
-  secret: "****"
-  # Access Token 过期时间（毫秒），示例：24 小时
-  expire: 86400000
-  # Token 请求头名称（可选，默认 Authorization）
+  # 生产环境通过环境变量注入，勿写入仓库
+  secret: ${JWT_SECRET}
+  expire: ${JWT_EXPIRE:86400000}
   header: Authorization
-  # Token 前缀（可选，默认 Bearer ）
   token-prefix: "Bearer "
