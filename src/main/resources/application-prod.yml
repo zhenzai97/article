@@ -1,0 +1,45 @@
+# 线上配置文件
+server:
+  port: 8101
+spring:
+  # 数据库配置
+  # todo 需替换配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/my_db
+    username: root
+    password: 123456
+  # Redis 配置
+  # todo 需替换配置
+  redis:
+    database: 1
+    host: localhost
+    port: 6379
+    timeout: 5000
+    password: 123456
+  # Elasticsearch 配置
+  # todo 需替换配置
+  elasticsearch:
+    uris: http://localhost:9200
+    username: root
+    password: 123456
+mybatis-plus:
+  configuration:
+    # 生产环境关闭日志
+    log-impl: ''
+# 接口文档配置
+knife4j:
+  basic:
+    enable: true
+    username: root
+    password: 123456
+
+jwt:
+  # 签名密钥（生产环境务必替换，且不要提交到公开仓库）
+  secret: "****"
+  # Access Token 过期时间（毫秒），示例：24 小时
+  expire: 86400000
+  # Token 请求头名称（可选，默认 Authorization）
+  header: Authorization
+  # Token 前缀（可选，默认 Bearer ）
+  token-prefix: "Bearer "

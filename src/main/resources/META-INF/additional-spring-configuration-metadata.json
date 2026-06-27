@@ -1,0 +1,54 @@
+{
+  "properties": [
+    {
+      "name": "cos.client.accessKey",
+      "type": "java.lang.String",
+      "description": "Description for cos.client.accessKey."
+    },
+    {
+      "name": "cos.client.secretKey",
+      "type": "java.lang.String",
+      "description": "Description for cos.client.secretKey."
+    },
+    {
+      "name": "cos.client.region",
+      "type": "java.lang.String",
+      "description": "Description for cos.client.region."
+    },
+    {
+      "name": "cos.client.bucket",
+      "type": "java.lang.String",
+      "description": "Description for cos.client.bucket."
+    },
+    {
+      "name": "wx.open.appId",
+      "type": "java.lang.String",
+      "description": "Description for wx.open.appId."
+    },
+    {
+      "name": "wx.open.appSecret",
+      "type": "java.lang.String",
+      "description": "Description for wx.open.appSecret."
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "JWT 签名密钥，生产环境务必替换为足够长的随机字符串。"
+    },
+    {
+      "name": "jwt.expire",
+      "type": "java.lang.Long",
+      "description": "Access Token 过期时间（毫秒）。"
+    },
+    {
+      "name": "jwt.header",
+      "type": "java.lang.String",
+      "description": "Token 请求头名称，默认 Authorization。"
+    },
+    {
+      "name": "jwt.token-prefix",
+      "type": "java.lang.String",
+      "description": "Token 前缀，默认 Bearer （含末尾空格）。"
+    }
+  ]
+}
