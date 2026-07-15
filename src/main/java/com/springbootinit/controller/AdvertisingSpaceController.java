@@ -95,7 +95,7 @@ public class AdvertisingSpaceController {
     /**
      * 分页获取运营分类
      */
-    @GetMapping("/list/page/vo")
+    @PostMapping("/list/page/vo")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Page<AdvertisingSpaceVO>> listAdvertisingSpaceVOByPage(@RequestBody AdvertisingSpaceQueryRequest advertisingSpaceQueryRequest){
        long current =  advertisingSpaceQueryRequest.getCurrent();

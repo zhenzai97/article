@@ -70,8 +70,8 @@ public class AdvertisingSpaceServiceImpl extends ServiceImpl<AdvertisingSpaceMap
     public Page<AdvertisingSpaceVO> getAdvertisingSpaceVOPage(Page<AdvertisingSpace> advertisingSpacePage){
 
       List<AdvertisingSpace> advertisingSpaceList=  advertisingSpacePage.getRecords();
-      Page<AdvertisingSpaceVO> advertisingSpaceVOPage = new Page<>(advertisingSpacePage.getCurrent(), advertisingSpacePage.getSize());
-      if(CollUtil.isNotEmpty(advertisingSpaceList)){
+      Page<AdvertisingSpaceVO> advertisingSpaceVOPage = new Page<>(advertisingSpacePage.getCurrent(), advertisingSpacePage.getSize(), advertisingSpacePage.getTotal());
+      if(CollUtil.isEmpty(advertisingSpaceList)){
           return advertisingSpaceVOPage;
       }
       List<AdvertisingSpaceVO> advertisingSpaceVOList = advertisingSpaceList.stream().map(this::getAdvertisingSpaceVO)
