@@ -3,7 +3,10 @@
 > 记录本项目开发、学习过程中提出的问题及解答。  
 > 每个问题对应一份详细文档，见 `issues/` 目录。
 
-**维护约定**：自 2026-06-26 起，每新增一个问题，在本表追加一行，并在 `issues/` 下新增对应详细文档。
+**维护约定**：
+
+- 自 2026-06-26 起，每新增一个问题，在本表追加一行，并在 `issues/` 下新增对应详细文档。
+- **自 2026-07-15 起**：对话中提出的每个问题，均按本约定即时收录（表中追加一行 + `issues/Qxxx-*.md` 详细文档）。
 
 ---
 
@@ -31,13 +34,15 @@
 | Q018 | 2026-06-27 | MenuServiceImpl.getMenuVO 的 @Override 提示未重写 | 已解答 | [Q018-override-getmenuvo-not-in-interface.md](./issues/Q018-override-getmenuvo-not-in-interface.md) |
 | Q019 | 2026-06-27 | 菜单列表应返回树形还是分页扁平数据 | 已解答 | [Q019-menu-tree-vs-page.md](./issues/Q019-menu-tree-vs-page.md) |
 | Q020 | 2026-06-27 | listMenuTreeVO 获取菜单树接口详细说明 | 已解答 | [Q020-list-menu-tree-vo-explained.md](./issues/Q020-list-menu-tree-vo-explained.md) |
+| Q021 | 2026-07-15 | @TableName(value = "article_category") 注解的作用 | 已解答 | [Q021-tablename-annotation.md](./issues/Q021-tablename-annotation.md) |
+| Q022 | 2026-07-15 | @Data 注解的作用（Lombok） | 已解答 | [Q022-lombok-data-annotation.md](./issues/Q022-lombok-data-annotation.md) |
 
 ---
 
 ## 统计
 
-- 问题总数：20
-- 已解答：20
+- 问题总数：22
+- 已解答：22
 - 待处理：0
 
 ---

@@ -87,4 +87,16 @@ public class ArticleCatServiceImpl extends ServiceImpl<ArticleCatMapper, Article
         articleCatVOPage.setRecords(articleCatVOList);
         return articleCatVOPage;
     }
+
+    @Override
+    public List<ArticleCatVO> getArticleCatVoAllData(ArticleCatQueryRequest articleCatQueryRequest) {
+        QueryWrapper<ArticleCat> queryWrapper = new QueryWrapper<>();
+        if (articleCatQueryRequest != null) {
+            Integer status = articleCatQueryRequest.getStatus();
+            queryWrapper.eq(status != null, "status", status);
+        }
+        queryWrapper.orderByAsc("sort");
+        List<ArticleCat> articleCatList = this.list(queryWrapper);
+        return articleCatList.stream().map(this::getArticleCatVO).collect(Collectors.toList());
+    }
 }

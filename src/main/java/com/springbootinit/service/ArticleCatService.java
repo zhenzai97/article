@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.springbootinit.model.dto.articleCat.ArticleCatQueryRequest;
 import com.springbootinit.model.entity.ArticleCat;
 import com.springbootinit.model.vo.ArticleCatVO;
+import java.util.List;
 
 /**
  * 文章分类服务
@@ -32,4 +33,8 @@ public interface ArticleCatService extends IService<ArticleCat> {
      * 分页获取文章分类封装
      */
     Page<ArticleCatVO> getArticleCatVOPage(Page<ArticleCat> articleCatPage);
+
+
+
+    List<ArticleCatVO> getArticleCatVoAllData(ArticleCatQueryRequest articleCatQueryRequest);
 }

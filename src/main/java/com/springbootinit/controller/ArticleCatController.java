@@ -16,6 +16,7 @@ import com.springbootinit.model.entity.User;
 import com.springbootinit.model.vo.ArticleCatVO;
 import com.springbootinit.service.ArticleCatService;
 import com.springbootinit.service.UserService;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -140,4 +141,16 @@ public class ArticleCatController {
                 articleCatService.getQueryWrapper(articleCatQueryRequest));
         return ResultUtils.success(articleCatService.getArticleCatVOPage(articleCatPage));
     }
+
+
+    /**
+     * 获取所有文章分类
+     */
+    @GetMapping("/list/allData")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<List<ArticleCatVO>> listArticleAllData(ArticleCatQueryRequest articleCatQueryRequest) {
+        List<ArticleCatVO> articleCatVOList = articleCatService.getArticleCatVoAllData(articleCatQueryRequest);
+        return ResultUtils.success(articleCatVOList);
+    }
+
 }

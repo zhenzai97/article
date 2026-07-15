@@ -10,6 +10,7 @@ import com.springbootinit.exception.BusinessException;
 import com.springbootinit.exception.ThrowUtils;
 import com.springbootinit.model.dto.menu.MenuAddRequest;
 import com.springbootinit.model.dto.menu.MenuQueryRequest;
+import com.springbootinit.model.dto.menu.MenuUpdateRequest;
 import com.springbootinit.model.entity.Menu;
 import com.springbootinit.model.entity.User;
 import com.springbootinit.model.vo.MenuVO;
@@ -82,15 +83,15 @@ public class MenuController {
      */
     @PostMapping("/update")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
-    public BaseResponse<Boolean> updateMenu(@RequestBody MenuAddRequest menuAddRequest) {
-        if (menuAddRequest == null || menuAddRequest.getId() == null) {
+    public BaseResponse<Boolean> updateMenu(@RequestBody MenuUpdateRequest menuUpdateRequest) {
+        if (menuUpdateRequest == null || menuUpdateRequest.getId() == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        Menu  oldMenu = menuService.getById(menuAddRequest.getId());
+        Menu oldMenu = menuService.getById(menuUpdateRequest.getId());
         ThrowUtils.throwIf(oldMenu == null, ErrorCode.NOT_FOUND_ERROR);
-        Menu  menu = new Menu();
-        BeanUtils.copyProperties(oldMenu, menu);
-        menuService.validMenu(menu, true);
+        Menu menu = new Menu();
+        BeanUtils.copyProperties(menuUpdateRequest, menu);
+        menuService.validMenu(menu, false);
         boolean result = menuService.updateById(menu);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         return ResultUtils.success(true);
