@@ -1,4 +1,7 @@
 package com.springbootinit.mapper;
 
-public interface AdvertisingSpaceMapper {
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.springbootinit.model.entity.AdvertisingSpace;
+
+public interface AdvertisingSpaceMapper extends BaseMapper<AdvertisingSpace> {
 }

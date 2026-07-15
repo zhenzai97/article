@@ -1,17 +1,23 @@
 package com.springbootinit.model.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
-import lombok.Data;
-
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import java.util.Date;
+import lombok.Data;
 
 /**
  * 运营广告位
+ * <p>
+ * 对应旧 CMS JSON：sign、name、status、desc→remark
  *
  */
 @TableName(value = "advertising_space")
 @Data
-public class AdvertisingSpace {
+public class AdvertisingSpace implements Serializable {
 
     /**
      * id
@@ -19,19 +25,18 @@ public class AdvertisingSpace {
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
-
     /**
-     * 名称
-     */
-    private String name;
-
-    /**
-     * 标记
+     * 广告位标识
      */
     private String sign;
 
     /**
-     * 备注
+     * 广告位名称
+     */
+    private String name;
+
+    /**
+     * 备注（旧系统字段 desc）
      */
     private String remark;
 

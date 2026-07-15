@@ -36,13 +36,15 @@
 | Q020 | 2026-06-27 | listMenuTreeVO 获取菜单树接口详细说明 | 已解答 | [Q020-list-menu-tree-vo-explained.md](./issues/Q020-list-menu-tree-vo-explained.md) |
 | Q021 | 2026-07-15 | @TableName(value = "article_category") 注解的作用 | 已解答 | [Q021-tablename-annotation.md](./issues/Q021-tablename-annotation.md) |
 | Q022 | 2026-07-15 | @Data 注解的作用（Lombok） | 已解答 | [Q022-lombok-data-annotation.md](./issues/Q022-lombok-data-annotation.md) |
+| Q023 | 2026-07-15 | ArticleCatController 上 @RestController / @RequestMapping / @Slf4j | 已解答 | [Q023-restcontroller-requestmapping-slf4j.md](./issues/Q023-restcontroller-requestmapping-slf4j.md) |
+| Q024 | 2026-07-15 | Controller 全部平铺还是按功能分包 | 已解答 | [Q024-controller-package-structure.md](./issues/Q024-controller-package-structure.md) |
 
 ---
 
 ## 统计
 
-- 问题总数：22
-- 已解答：22
+- 问题总数：24
+- 已解答：24
 - 待处理：0
 
 ---
