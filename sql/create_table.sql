@@ -194,6 +194,8 @@ create table if not exists tourism_content
     index idx_isRecommend (isRecommend)
 ) comment '文旅内容展示' collate = utf8mb4_unicode_ci;
 
+-- 首页区块配置详见 create_home_section.sql
+
 -- -- 帖子表
 -- create table if not exists post
 -- (
