@@ -88,6 +88,8 @@ public class DashboardOverviewVO implements Serializable {
 
     @Data
     public static class DashboardCategoryItemVO implements Serializable {
+        /** 分类 id，未分类时为 null */
+        private Long id;
         private String name;
         private long count;
         private int percent;

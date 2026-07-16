@@ -212,30 +212,37 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     private List<DashboardCategoryItemVO> buildCategories() {
+        List<ArticleCat> cats = articleCatService.list(new QueryWrapper<ArticleCat>()
+                .orderByAsc("sort")
+                .orderByAsc("id"));
         List<Article> articles = articleService.list(new QueryWrapper<Article>()
                 .select("id", "categoryId"));
-        if (CollUtil.isEmpty(articles)) {
-            return new ArrayList<>();
-        }
         Map<Long, Long> countMap = articles.stream()
                 .filter(a -> a.getCategoryId() != null && a.getCategoryId() > 0)
                 .collect(Collectors.groupingBy(Article::getCategoryId, Collectors.counting()));
-        if (countMap.isEmpty()) {
-            return new ArrayList<>();
+        long uncategorized = articles.stream()
+                .filter(a -> a.getCategoryId() == null || a.getCategoryId() <= 0)
+                .count();
+        long total = articles.size();
+
+        List<DashboardCategoryItemVO> result = new ArrayList<>();
+        for (ArticleCat cat : cats) {
+            long count = countMap.getOrDefault(cat.getId(), 0L);
+            DashboardCategoryItemVO item = new DashboardCategoryItemVO();
+            item.setId(cat.getId());
+            item.setName(cat.getName());
+            item.setCount(count);
+            item.setPercent(total == 0 ? 0 : (int) Math.round(count * 100.0 / total));
+            result.add(item);
         }
-        Map<Long, String> nameMap = articleCatService.listByIds(countMap.keySet()).stream()
-                .collect(Collectors.toMap(ArticleCat::getId, ArticleCat::getName, (a, b) -> a));
-        long total = countMap.values().stream().mapToLong(Long::longValue).sum();
-        return countMap.entrySet().stream()
-                .sorted((a, b) -> Long.compare(b.getValue(), a.getValue()))
-                .limit(8)
-                .map(entry -> {
-                    DashboardCategoryItemVO item = new DashboardCategoryItemVO();
-                    item.setName(nameMap.getOrDefault(entry.getKey(), "未分类"));
-                    item.setCount(entry.getValue());
-                    item.setPercent(total == 0 ? 0 : (int) Math.round(entry.getValue() * 100.0 / total));
-                    return item;
-                })
-                .collect(Collectors.toList());
+        if (uncategorized > 0) {
+            DashboardCategoryItemVO other = new DashboardCategoryItemVO();
+            other.setId(null);
+            other.setName("未分类");
+            other.setCount(uncategorized);
+            other.setPercent(total == 0 ? 0 : (int) Math.round(uncategorized * 100.0 / total));
+            result.add(other);
+        }
+        return result;
     }
 }
