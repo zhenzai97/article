@@ -15,11 +15,8 @@ import com.springbootinit.model.entity.TourismContent;
 import com.springbootinit.model.vo.TourismContentVO;
 import com.springbootinit.service.TourismContentService;
 import com.springbootinit.utils.SqlUtils;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -75,8 +72,8 @@ public class TourismContentServiceImpl extends ServiceImpl<TourismContentMapper,
         queryWrapper.eq(status != null, "status", status);
         queryWrapper.eq(isRecommend != null, "isRecommend", isRecommend);
 
-        applyDateTimeRange(queryWrapper, "createTime", request.getCStartTime(), request.getCEndTime());
-        applyDateTimeRange(queryWrapper, "updateTime", request.getUpStartTime(), request.getUpEndTime());
+        SqlUtils.applyDateTimeRange(queryWrapper, "createTime", request.getCStartTime(), request.getCEndTime());
+        SqlUtils.applyDateTimeRange(queryWrapper, "updateTime", request.getUpStartTime(), request.getUpEndTime());
 
         if (SqlUtils.validSortField(sortField)) {
             queryWrapper.orderBy(true, CommonConstant.SORT_ORDER_ASC.equals(sortOrder), sortField);
@@ -84,31 +81,6 @@ public class TourismContentServiceImpl extends ServiceImpl<TourismContentMapper,
             queryWrapper.orderByDesc("sort").orderByDesc("updateTime");
         }
         return queryWrapper;
-    }
-
-    private void applyDateTimeRange(QueryWrapper<TourismContent> queryWrapper, String column,
-            String start, String end) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if (StringUtils.isNotBlank(start)) {
-            Date date = parseDate(sdf, start);
-            if (date != null) {
-                queryWrapper.ge(column, date);
-            }
-        }
-        if (StringUtils.isNotBlank(end)) {
-            Date date = parseDate(sdf, end);
-            if (date != null) {
-                queryWrapper.le(column, date);
-            }
-        }
-    }
-
-    private Date parseDate(SimpleDateFormat sdf, String value) {
-        try {
-            return sdf.parse(value);
-        } catch (ParseException ignored) {
-            return null;
-        }
     }
 
     @Override

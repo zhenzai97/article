@@ -49,7 +49,13 @@ public class HomeIndexVO implements Serializable {
     public static class HomeAdItemVO implements Serializable {
         private Long id;
         private String name;
-        private String cover;
+          private String cover;
+
+
+    /**
+     * 营业执照
+     */
+    private String license;
         private String path;
         private String video;
         /** 对应旧 desc */
@@ -62,7 +68,13 @@ public class HomeIndexVO implements Serializable {
     public static class HomeArticleItemVO implements Serializable {
         private Long id;
         private String title;
-        private String cover;
+          private String cover;
+
+
+    /**
+     * 营业执照
+     */
+    private String license;
         private String video;
         private Integer readNum;
         private Integer isHome;

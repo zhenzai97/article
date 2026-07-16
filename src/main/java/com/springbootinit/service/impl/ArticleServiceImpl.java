@@ -16,8 +16,6 @@ import com.springbootinit.model.vo.ArticleVO;
 import com.springbootinit.service.ArticleCatService;
 import com.springbootinit.service.ArticleService;
 import com.springbootinit.utils.SqlUtils;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -75,33 +73,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         queryWrapper.eq(status != null, "status", status);
         queryWrapper.eq(isHome != null, "isHome", isHome);
         queryWrapper.eq(isTop != null, "isTop", isTop);
-        // 创建时间范围筛选
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if (StringUtils.isNotBlank(articleQueryRequest.getCStartTime())) {
-            try {
-                queryWrapper.ge("createTime", sdf.parse(articleQueryRequest.getCStartTime()));
-            } catch (Exception ignored) {
-            }
-        }
-        if (StringUtils.isNotBlank(articleQueryRequest.getCEndTime())) {
-            try {
-                queryWrapper.le("createTime", sdf.parse(articleQueryRequest.getCEndTime()));
-            } catch (Exception ignored) {
-            }
-        }
-        // 更新时间范围筛选
-        if (StringUtils.isNotBlank(articleQueryRequest.getUpStartTime())) {
-            try {
-                queryWrapper.ge("updateTime", sdf.parse(articleQueryRequest.getUpStartTime()));
-            } catch (Exception ignored) {
-            }
-        }
-        if (StringUtils.isNotBlank(articleQueryRequest.getUpEndTime())) {
-            try {
-                queryWrapper.le("updateTime", sdf.parse(articleQueryRequest.getUpEndTime()));
-            } catch (Exception ignored) {
-            }
-        }
+        // 时间范围筛选
+        SqlUtils.applyDateTimeRange(queryWrapper, "createTime",
+                articleQueryRequest.getCStartTime(), articleQueryRequest.getCEndTime());
+        SqlUtils.applyDateTimeRange(queryWrapper, "updateTime",
+                articleQueryRequest.getUpStartTime(), articleQueryRequest.getUpEndTime());
         queryWrapper.orderBy(SqlUtils.validSortField(sortField),
                 CommonConstant.SORT_ORDER_ASC.equals(sortOrder), sortField);
         return queryWrapper;

@@ -12,6 +12,7 @@
 | **禁止拆分建表文件** | 不要新增 `sql/create_xxx_table.sql`；新表、改表一律追加到 `create_table.sql` |
 | **种子数据** | 可选，使用 `sql/seed_*.sql`（如 `seed_article_category.sql`），与建表文件分离 |
 | **非 MySQL DDL** | 如 ES mapping（`post_es_mapping.json`）可单独放在 `sql/`，不属于建表约定范围 |
+| **目录说明** | 见 [`sql/README.md`](../sql/README.md) |
 
 执行示例：
 

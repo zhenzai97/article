@@ -162,8 +162,9 @@ create table if not exists advertising
     index idx_endTime (endTime)
 ) comment '运营广告' collate = utf8mb4_unicode_ci;
 
--- 文旅内容展示表（详见 create_tourism_content.sql）
+-- 文旅内容展示表
 -- type: product | brand | market | jewelry | food | scenic
+-- 种子数据见 seed_tourism_content.sql
 create table if not exists tourism_content
 (
     id           bigint auto_increment comment 'id' primary key,
@@ -194,7 +195,27 @@ create table if not exists tourism_content
     index idx_isRecommend (isRecommend)
 ) comment '文旅内容展示' collate = utf8mb4_unicode_ci;
 
--- 首页区块配置详见 create_home_section.sql
+-- 首页区块配置（方案 B）
+-- 默认区块种子数据见 seed_home_section.sql
+create table if not exists home_section
+(
+    id            bigint auto_increment comment 'id' primary key,
+    code          varchar(64)                            not null comment '区块编码：carousel/channel/banner/special/article_home/article_cat/activity',
+    title         varchar(128)                           null comment '展示标题',
+    visible       tinyint      default 1                 not null comment '是否显示：0-否 1-是',
+    sort          int          default 0                 not null comment '排序（越大越靠前）',
+    limitNum      int          default 5                 not null comment '拉取条数',
+    spaceSign     varchar(64)                            null comment '广告运营位 sign',
+    categorySign  varchar(64)                            null comment '文章栏目 sign',
+    status        tinyint      default 1                 not null comment '状态：0-禁用 1-启用',
+    createUserId  bigint                                 null comment '创建人 id',
+    createTime    datetime     default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime    datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    isDelete      tinyint      default 0                 not null comment '是否删除',
+    unique key uk_code (code),
+    index idx_sort (sort),
+    index idx_status (status)
+) comment '首页区块配置' collate = utf8mb4_unicode_ci;
 
 -- -- 帖子表
 -- create table if not exists post

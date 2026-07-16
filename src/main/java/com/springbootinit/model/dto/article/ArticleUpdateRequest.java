@@ -33,7 +33,13 @@ public class ArticleUpdateRequest implements Serializable {
     /**
      * 封面图
      */
-    private String cover;
+      private String cover;
+
+
+    /**
+     * 营业执照
+     */
+    private String license;
 
     /**
      * 视频地址

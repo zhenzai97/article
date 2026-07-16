@@ -16,7 +16,13 @@ public class TourismContentUpdateRequest implements Serializable {
 
     private String name;
 
-    private String cover;
+      private String cover;
+
+
+    /**
+     * 营业执照
+     */
+    private String license;
 
     private String intro;
 

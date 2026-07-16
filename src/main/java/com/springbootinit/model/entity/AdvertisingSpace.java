@@ -11,8 +11,6 @@ import lombok.Data;
 
 /**
  * 运营广告位
- * <p>
- * 对应旧 CMS JSON：sign、name、status、desc→remark
  *
  */
 @TableName(value = "advertising_space")

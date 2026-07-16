@@ -11,9 +11,6 @@ import lombok.Data;
 
 /**
  * 运营广告
- * <p>
- * 对应旧 CMS：name、sort、cover、start_time、end_time、desc→remark、
- * cate_id→spaceId、path、content、video、status
  */
 @TableName(value = "advertising")
 @Data
@@ -29,7 +26,13 @@ public class Advertising implements Serializable {
     private String name;
 
     /** 封面图 */
-    private String cover;
+      private String cover;
+
+
+    /**
+     * 营业执照
+     */
+    private String license;
 
     /** 视频地址 */
     private String video;

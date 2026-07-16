@@ -20,7 +20,13 @@ public class AdvertisingUpdateRequest implements Serializable {
     private String name;
 
     /** 封面图 */
-    private String cover;
+      private String cover;
+
+
+    /**
+     * 营业执照
+     */
+    private String license;
 
     /** 视频地址 */
     private String video;
