@@ -71,11 +71,12 @@ public class CompanyController {
     }
 
 
-//    @PostMapping("/list/page/vo")
-//    public BaseResponse<Page<CompanyVO>> listCompanyVOByPage(@RequestBody CompanyQueryRequest  companyQueryRequest) {
-//        long current = companyQueryRequest.getCurrent();
-//        long size = companyQueryRequest.getPageSize();
-//
-//
-//    }
+    @PostMapping("/list/page/vo")
+    public BaseResponse<Page<CompanyVO>> listCompanyVOByPage(@RequestBody CompanyQueryRequest  companyQueryRequest) {
+        long current = companyQueryRequest.getCurrent();
+        long size = companyQueryRequest.getPageSize();
+        Page<Company> companyPage = companyService.page(new Page<>(current, size),
+                companyService.getQueryWrapper(companyQueryRequest));
+        return ResultUtils.success(companyService.getCompanyVOPage(companyPage));
+    }
 }
