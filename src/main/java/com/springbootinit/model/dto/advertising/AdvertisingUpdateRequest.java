@@ -1,3 +1,5 @@
+package com.springbootinit.model.dto.advertising;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;

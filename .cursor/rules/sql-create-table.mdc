@@ -1,0 +1,12 @@
+---
+description: SQL 建表只维护 sql/create_table.sql，禁止拆分 create_xxx_table.sql
+globs: sql/**
+alwaysApply: false
+---
+
+# SQL 建表约定
+
+- 所有表结构 DDL（新建表、改字段、加索引）只追加到 `sql/create_table.sql`
+- **禁止**新增 `sql/create_xxx_table.sql` 之类的拆分建表文件
+- 种子数据使用 `sql/seed_*.sql`；ES mapping 等非 MySQL DDL 可单独存放
+- 完整约定见 `docs/project-conventions.md`

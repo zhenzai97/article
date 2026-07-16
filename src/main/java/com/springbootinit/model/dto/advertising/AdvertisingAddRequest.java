@@ -1,7 +1,10 @@
+package com.springbootinit.model.dto.advertising;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+
 
 /**
  * 创建运营广告请求
