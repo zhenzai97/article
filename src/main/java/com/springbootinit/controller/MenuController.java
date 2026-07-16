@@ -134,5 +134,14 @@ public class MenuController {
         return ResultUtils.success(menuService.buildMenuTree(menuList));
     }
 
+    /**
+     * 当前登录用户可见菜单树（目录/菜单/按钮，按角色过滤）
+     */
+    @GetMapping("/list/my/tree")
+    @AuthCheck
+    public BaseResponse<List<MenuVO>> listMyMenuTree(HttpServletRequest request) {
+        User loginUser = userService.getLoginUser(request);
+        return ResultUtils.success(menuService.listMyMenuTree(loginUser));
+    }
 
 }

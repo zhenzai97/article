@@ -41,20 +41,15 @@ public class RoleVO implements Serializable {
      */
     private Integer sort;
 
-//    /**
-//     * 是否内置：0-否 1-是
-//     */
-//    private Integer isBuiltin;
-//
-//    /**
-//     * 是否超级管理员：0-否 1-是
-//     */
-//    private Integer isSuperAdmin;
-//
-//    /**
-//     * 数据范围：1-全部 2-本部门 3-仅本人
-//     */
-//    private Integer dataScope;
+    /**
+     * 是否内置：0-否 1-是
+     */
+    private Integer isBuiltin;
+
+    /**
+     * 是否超级管理员：0-否 1-是
+     */
+    private Integer isSuperAdmin;
 
     /**
      * 创建人 id

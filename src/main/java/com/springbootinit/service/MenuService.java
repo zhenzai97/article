@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.springbootinit.model.dto.menu.MenuQueryRequest;
 import com.springbootinit.model.entity.Menu;
+import com.springbootinit.model.entity.User;
 import com.springbootinit.model.vo.MenuVO;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.util.List;
@@ -48,4 +49,10 @@ public interface MenuService extends IService<Menu> {
      * @return 根节点列表，子节点在 children 中
      */
     List<MenuVO> buildMenuTree(List<Menu> menuList);
+
+    /**
+     * 当前登录用户可见菜单树（含目录/菜单/按钮）
+     * <p>桥接：user.userRole 对应 role.roleCode；超管返回全部启用菜单
+     */
+    List<MenuVO> listMyMenuTree(User loginUser);
 }

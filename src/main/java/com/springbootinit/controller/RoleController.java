@@ -9,17 +9,19 @@ import com.springbootinit.constant.UserConstant;
 import com.springbootinit.exception.BusinessException;
 import com.springbootinit.exception.ThrowUtils;
 import com.springbootinit.model.dto.role.RoleAddRequest;
+import com.springbootinit.model.dto.role.RoleAssignMenuRequest;
 import com.springbootinit.model.dto.role.RoleQueryRequest;
 import com.springbootinit.model.dto.role.RoleUpdateRequest;
 import com.springbootinit.model.entity.Role;
 import com.springbootinit.model.entity.User;
 import com.springbootinit.model.vo.RoleVO;
+import com.springbootinit.service.RoleMenuService;
 import com.springbootinit.service.RoleService;
 import com.springbootinit.service.UserService;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -40,6 +43,9 @@ public class RoleController {
 
     @Resource
     private RoleService roleService;
+
+    @Resource
+    private RoleMenuService roleMenuService;
 
     @Resource
     private UserService userService;
@@ -92,6 +98,7 @@ public class RoleController {
                 ErrorCode.OPERATION_ERROR, "内置角色不可删除");
         boolean result = roleService.removeById(id);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
+        roleMenuService.removeByRoleId(id);
         return ResultUtils.success(true);
     }
 
@@ -151,5 +158,36 @@ public class RoleController {
         Page<Role> rolePage = roleService.page(new Page<>(current, size),
                 roleService.getQueryWrapper(roleQueryRequest));
         return ResultUtils.success(roleService.getRoleVOPage(rolePage));
+    }
+
+    /**
+     * 查询角色已分配的菜单 id 列表
+     */
+    @GetMapping("/menuIds")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<List<Long>> listRoleMenuIds(@RequestParam("roleId") long roleId) {
+        ThrowUtils.throwIf(roleId <= 0, ErrorCode.PARAMS_ERROR);
+        Role role = roleService.getById(roleId);
+        ThrowUtils.throwIf(role == null, ErrorCode.NOT_FOUND_ERROR);
+        return ResultUtils.success(roleMenuService.listMenuIdsByRoleId(roleId));
+    }
+
+    /**
+     * 为角色分配菜单（覆盖保存，含目录/菜单/按钮）
+     */
+    @PostMapping("/assignMenu")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<Boolean> assignMenu(@RequestBody RoleAssignMenuRequest request,
+            HttpServletRequest httpServletRequest) {
+        if (request == null || request.getRoleId() == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Role role = roleService.getById(request.getRoleId());
+        ThrowUtils.throwIf(role == null, ErrorCode.NOT_FOUND_ERROR);
+        ThrowUtils.throwIf(role.getIsSuperAdmin() != null && role.getIsSuperAdmin() == 1,
+                ErrorCode.OPERATION_ERROR, "超级管理员拥有全部菜单，无需分配");
+        User loginUser = userService.getLoginUser(httpServletRequest);
+        roleMenuService.assignMenus(request.getRoleId(), request.getMenuIds(), loginUser.getId());
+        return ResultUtils.success(true);
     }
 }
