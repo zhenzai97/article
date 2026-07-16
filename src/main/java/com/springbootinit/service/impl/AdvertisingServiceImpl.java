@@ -16,6 +16,9 @@ import com.springbootinit.model.vo.AdvertisingVO;
 import com.springbootinit.service.AdvertisingService;
 import com.springbootinit.service.AdvertisingSpaceService;
 import com.springbootinit.utils.SqlUtils;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
@@ -71,12 +74,64 @@ public class AdvertisingServiceImpl extends ServiceImpl<AdvertisingMapper, Adver
         queryWrapper.eq(spaceId != null, "spaceId", spaceId);
         queryWrapper.like(StringUtils.isNotBlank(name), "name", name);
         queryWrapper.eq(status != null, "status", status);
+
+        // 创建时间
+        applyDateTimeRange(queryWrapper, "createTime", request.getCStartTime(), request.getCEndTime());
+        // 更新时间
+        applyDateTimeRange(queryWrapper, "updateTime", request.getUpStartTime(), request.getUpEndTime());
+        // 展示开始日期
+        applyDateRange(queryWrapper, "startTime", request.getSStartTime(), request.getSEndTime());
+        // 展示结束日期
+        applyDateRange(queryWrapper, "endTime", request.getEStartTime(), request.getEEndTime());
+
         if (SqlUtils.validSortField(sortField)) {
             queryWrapper.orderBy(true, CommonConstant.SORT_ORDER_ASC.equals(sortOrder), sortField);
         } else {
             queryWrapper.orderByDesc("sort").orderByDesc("updateTime");
         }
         return queryWrapper;
+    }
+
+    private void applyDateTimeRange(QueryWrapper<Advertising> queryWrapper, String column,
+            String start, String end) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if (StringUtils.isNotBlank(start)) {
+            Date date = parseDate(sdf, start);
+            if (date != null) {
+                queryWrapper.ge(column, date);
+            }
+        }
+        if (StringUtils.isNotBlank(end)) {
+            Date date = parseDate(sdf, end);
+            if (date != null) {
+                queryWrapper.le(column, date);
+            }
+        }
+    }
+
+    private void applyDateRange(QueryWrapper<Advertising> queryWrapper, String column,
+            String start, String end) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if (StringUtils.isNotBlank(start)) {
+            Date date = parseDate(sdf, start.length() > 10 ? start.substring(0, 10) : start);
+            if (date != null) {
+                queryWrapper.ge(column, date);
+            }
+        }
+        if (StringUtils.isNotBlank(end)) {
+            Date date = parseDate(sdf, end.length() > 10 ? end.substring(0, 10) : end);
+            if (date != null) {
+                queryWrapper.le(column, date);
+            }
+        }
+    }
+
+    private Date parseDate(SimpleDateFormat sdf, String value) {
+        try {
+            return sdf.parse(value);
+        } catch (ParseException ignored) {
+            return null;
+        }
     }
 
     @Override
