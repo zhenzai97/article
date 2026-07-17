@@ -20,17 +20,17 @@ public class RecruitmentVO implements Serializable {
     private String name;
 
     /**
-     * 薪资范围
+     * 薪资范围（如 5000-6000）
      */
     private String salaryRange;
 
     /**
-     * 工作时长
+     * 工作经验（如 1-3年）
      */
     private String workingHours;
 
     /**
-     * 学历
+     * 学历（如 大学本科）
      */
     private String qualification;
 
@@ -65,6 +65,11 @@ public class RecruitmentVO implements Serializable {
      * 岗位详情
      */
     private String positionContent;
+
+    /**
+     * 员工福利
+     */
+    private String employeeWelfare;
 
     /**
      * 创建人 id

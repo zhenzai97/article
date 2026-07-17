@@ -257,6 +257,37 @@ create table if not exists company
     index idx_sort (sort)
 ) comment '会员单位/企业' collate = utf8mb4_unicode_ci;
 
+-- 招聘表
+-- 旧 CMS：workinghours→workingHours、salary_range_st/ed 合并为 salaryRange 字符串、
+-- salary_details→salaryContent、job_respons→positionContent、employee_welfar→employeeWelfare、
+-- company_name→companyId/companyName；_id→sourceId
+-- salaryRange / workingHours / qualification 与前端约定直接存枚举字符串，不拆数字字段
+create table if not exists recruitment
+(
+    id               bigint auto_increment comment 'id' primary key,
+    name             varchar(256)                           not null comment '招聘标题/岗位名称',
+    salaryRange      varchar(64)                            null comment '薪资范围（前端约定字符串，如 5000-6000）',
+    workingHours     varchar(64)                            null comment '工作经验（前端枚举：1-3年/3-5年/5-10年/10-15年/15-20年/无经验）',
+    qualification    varchar(64)                            null comment '学历（前端枚举：小学/初中/高中/大专/大学本科/研究生/博士研究生）',
+    companyId        bigint                                 null comment '公司 id（关联 company）',
+    companyName      varchar(256)                           null comment '公司名称（冗余展示）',
+    sort             int          default 0                 not null comment '排序（越大越靠前）',
+    status           tinyint      default 1                 not null comment '状态：0-禁用 1-启用',
+    salaryContent    longtext                               null comment '薪资详情（旧 salary_details）',
+    positionContent  longtext                               null comment '岗位职责/详情（旧 job_respons）',
+    employeeWelfare  longtext                               null comment '员工福利（旧 employee_welfar）',
+    sourceId         varchar(64)                            null comment '旧 CMS _id，便于幂等导入',
+    createUserId     bigint                                 null comment '创建人 id',
+    createTime       datetime     default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime       datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    isDelete         tinyint      default 0                 not null comment '是否删除',
+    unique key uk_sourceId (sourceId),
+    index idx_companyId (companyId),
+    index idx_name (name),
+    index idx_status (status),
+    index idx_sort (sort)
+) comment '招聘' collate = utf8mb4_unicode_ci;
+
 -- -- 帖子表
 -- create table if not exists post
 -- (

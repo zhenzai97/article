@@ -40,13 +40,14 @@
 | Q024 | 2026-07-15 | Controller 全部平铺还是按功能分包 | 已解答 | [Q024-controller-package-structure.md](./issues/Q024-controller-package-structure.md) |
 | Q025 | 2026-07-16 | 建表 SQL 只保留 create_table.sql 的约定 | 已解答 | [Q025-sql-create-table-convention.md](./issues/Q025-sql-create-table-convention.md) |
 | Q026 | 2026-07-16 | post_es_mapping / seed_*.sql 三个文件的作用 | 已解答 | [Q026-seed-and-es-mapping-files.md](./issues/Q026-seed-and-es-mapping-files.md) |
+| Q027 | 2026-07-17 | 招聘 salaryRange/workingHours/qualification 字符串枚举约定 | 已解答 | [Q027-recruitment-string-enum-fields.md](./issues/Q027-recruitment-string-enum-fields.md) |
 
 ---
 
 ## 统计
 
-- 问题总数：26
-- 已解答：26
+- 问题总数：27
+- 已解答：27
 - 待处理：0
 
 ---

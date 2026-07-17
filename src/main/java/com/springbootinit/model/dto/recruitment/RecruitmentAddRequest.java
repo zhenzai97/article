@@ -16,17 +16,17 @@ public class RecruitmentAddRequest implements Serializable {
     private String name;
 
     /**
-     * 薪资范围
+     * 薪资范围（前端约定字符串，如 5000-6000）
      */
     private String salaryRange;
 
     /**
-     * 工作时长
+     * 工作经验（前端枚举：1-3年/3-5年/5-10年/10-15年/15-20年/无经验）
      */
     private String workingHours;
 
     /**
-     * 学历
+     * 学历（前端枚举：小学/初中/高中/大专/大学本科/研究生/博士研究生）
      */
     private String qualification;
 
@@ -56,6 +56,11 @@ public class RecruitmentAddRequest implements Serializable {
      * 岗位详情
      */
     private String positionContent;
+
+    /**
+     * 员工福利
+     */
+    private String employeeWelfare;
 
     /**
      * 创建人 id
