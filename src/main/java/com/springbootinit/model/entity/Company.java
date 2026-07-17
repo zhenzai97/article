@@ -4,11 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import lombok.Data;
-
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+import lombok.Data;
 
+/**
+ * 会员单位 / 企业
+ */
+@TableName(value = "company")
 @Data
 public class Company implements Serializable {
 
@@ -18,128 +22,76 @@ public class Company implements Serializable {
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
-    /**
-     * 公司名称
-     */
-    private String
-            name;
+    /** 公司名称 */
+    private String name;
 
-    /**
-     * 公司简称
-     */
+    /** 公司简称 */
     private String nickname;
 
-    /**
-     * 公司封面
-     */
-      private String cover;
+    /** 公司封面 */
+    private String cover;
 
-    /**
-     * 营业执照
-     */
+    /** 营业执照 */
     private String license;
 
-
-    /**
-     * 公司介绍
-     */
+    /** 公司介绍 */
     private String intro;
 
-
-    /**
-     * 会员属性（1会长单位  2副会长单位 3理事单位  4会员单位  5个人单位， 0其它，）
-     */
+    /** 会员属性（1会长单位 2副会长单位 3理事单位 4会员单位 5个人单位 0其它）旧 position */
     private Integer vip;
 
-
-    /**
-     * 会员类型（1单位会员  2个人会员）
-     */
+    /** 会员类型（1单位会员 2个人会员）旧 type */
     private Integer vipType;
 
+    /** 政治面貌（1共产党员 2共青团员 3群众 4其它） */
+    @TableField("`identity`")
+    private Integer identity;
 
-    /**
-     * 政治面貌（1 共产党员  2 共青团员  3 群众  4其它 ）
-     */
-    private Integer identity ;
+    /** 性别：0未知 1男 2女（个人会员） */
+    private Integer sex;
 
+    /** 审核状态（0待审核 1已通过 2已拒绝） */
+    private Integer examineStatus;
 
-    /**
-     * 审核状态（0 待审核  1已通过  2已拒绝）
-     */
-    private Integer examineStatus ;
-
-    /**
-     * 状态：0-禁用 1-启用
-     */
+    /** 状态：0-禁用 1-启用 */
     private Integer status;
 
-
-    /**
-     * 联系电话
-     */
+    /** 联系电话 */
     private String mobile;
 
-
-    /**
-     * 邮箱
-     */
+    /** 邮箱 */
     private String email;
 
-
-    /**
-     * 联系地址
-     */
+    /** 联系地址 */
     private String address;
 
-    /**
-     * 公司地理坐标
-     */
+    /** 公司地理坐标 */
     private String coordinate;
 
-    /**
-     * 公司业务
-     */
+    /** 公司业务 */
     private String business;
 
-    /**
-     * 公司标签（ 1 抖音 ,2 快手 ,3 微博 ,4 红木 ,  5 大学生 ，6 主播 ，7策划）
-     */
+    /** 公司标签 */
     private String tag;
 
-    /**
-     * 附件
-     */
+    /** 附件 */
     private String annexe;
 
-    /**
-     * 排序
-     */
+    /** 排序 */
     private Integer sort;
 
-    /**
-     * 公司招聘介绍
-     */
+    /** 公司招聘介绍 */
     private String recruitmentDes;
 
-    /**
-     * 创建人 id
-     */
+    /** 旧 CMS _id */
+    private String sourceId;
+
     private Long createUserId;
 
-    /**
-     * 创建时间
-     */
     private Date createTime;
 
-    /**
-     * 更新时间
-     */
     private Date updateTime;
 
-    /**
-     * 是否删除
-     */
     @TableLogic
     private Integer isDelete;
 }

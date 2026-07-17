@@ -10,6 +10,9 @@ public interface CompanyService extends IService<Company> {
 
     void validCompany(Company company, boolean add);
 
+    /** 管理端校验（比小程序入会更宽松） */
+    void validCompanyAdmin(Company company, boolean add);
+
     QueryWrapper<Company> getQueryWrapper(CompanyQueryRequest companyQueryRequest);
 
     Page<CompanyVO> getCompanyVOPage(Page<Company> companyPage);

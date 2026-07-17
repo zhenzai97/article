@@ -217,6 +217,46 @@ create table if not exists home_section
     index idx_status (status)
 ) comment '首页区块配置' collate = utf8mb4_unicode_ci;
 
+-- 会员单位 / 企业表
+-- 旧 CMS JSON 映射：type→vipType、position→vip、examine_status→examineStatus、
+-- recruitment_des→recruitmentDes、desc 类字段无；_id→sourceId；丢弃无关嵌套
+create table if not exists company
+(
+    id              bigint auto_increment comment 'id' primary key,
+    name            varchar(256)                           not null comment '公司名称',
+    nickname        varchar(128)                           null comment '公司简称/联系人昵称',
+    cover           varchar(1024)                          null comment '公司封面',
+    license         varchar(1024)                          null comment '营业执照',
+    intro           text                                   null comment '公司介绍',
+    vip             tinyint                                null comment '会员属性：1会长单位 2副会长单位 3理事单位 4会员单位 5个人单位 0其它（旧 position）',
+    vipType         tinyint                                null comment '会员类型：1单位会员 2个人会员（旧 type）',
+    identity        tinyint                                null comment '政治面貌：1共产党员 2共青团员 3群众 4其它',
+    sex             tinyint                                null comment '性别：0未知 1男 2女（旧 CMS sex，个人会员用）',
+    examineStatus   tinyint      default 0                 not null comment '审核状态：0待审核 1已通过 2已拒绝',
+    status          tinyint      default 1                 not null comment '状态：0-禁用 1-启用',
+    mobile          varchar(64)                            null comment '联系电话',
+    email           varchar(128)                           null comment '邮箱',
+    address         varchar(512)                           null comment '联系地址',
+    coordinate      varchar(64)                            null comment '地理坐标 lat,lng',
+    business        varchar(1024)                          null comment '公司业务',
+    tag             varchar(256)                           null comment '公司标签（如 1抖音,2快手）',
+    annexe          varchar(1024)                          null comment '附件',
+    sort            int          default 0                 not null comment '排序（越大越靠前）',
+    recruitmentDes  longtext                               null comment '公司招聘介绍（旧 recruitment_des）',
+    sourceId        varchar(64)                            null comment '旧 CMS _id，便于幂等导入',
+    createUserId    bigint                                 null comment '创建人 id',
+    createTime      datetime     default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime      datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    isDelete        tinyint      default 0                 not null comment '是否删除',
+    unique key uk_sourceId (sourceId),
+    index idx_name (name),
+    index idx_vip (vip),
+    index idx_vipType (vipType),
+    index idx_examineStatus (examineStatus),
+    index idx_status (status),
+    index idx_sort (sort)
+) comment '会员单位/企业' collate = utf8mb4_unicode_ci;
+
 -- -- 帖子表
 -- create table if not exists post
 -- (

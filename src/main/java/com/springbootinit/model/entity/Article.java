@@ -43,12 +43,6 @@ public class Article implements Serializable {
      */
       private String cover;
 
-
-    /**
-     * 营业执照
-     */
-    private String license;
-
     /**
      * 视频地址
      */

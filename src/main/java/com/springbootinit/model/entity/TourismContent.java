@@ -30,12 +30,6 @@ public class TourismContent implements Serializable {
     /** 封面图 */
       private String cover;
 
-
-    /**
-     * 营业执照
-     */
-    private String license;
-
     /** 简介 */
     private String intro;
 

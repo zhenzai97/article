@@ -9,6 +9,8 @@ import java.util.Date;
 public class CompanyVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private Long id;
+
     /**
      * 公司名称
      */
@@ -22,61 +24,57 @@ public class CompanyVO implements Serializable {
     /**
      * 公司封面
      */
-      private String cover;
-
+    private String cover;
 
     /**
      * 营业执照
      */
     private String license;
 
-
     /**
      * 公司介绍
      */
     private String intro;
-
 
     /**
      * 会员属性（1会长单位  2副会长单位 3理事单位  4会员单位  5个人单位， 0其它，）
      */
     private Integer vip;
 
-
     /**
      * 会员类型（1单位会员  2个人会员）
      */
     private Integer vipType;
 
-
     /**
      * 政治面貌（1 共产党员  2 共青团员  3 群众  4其它 ）
      */
-    private Integer identity ;
+    private Integer identity;
 
+    /**
+     * 性别：0未知 1男 2女
+     */
+    private Integer sex;
 
     /**
      * 审核状态（0 待审核  1已通过  2已拒绝）
      */
-    private Integer examineStatus ;
+    private Integer examineStatus;
 
     /**
      * 状态：0-禁用 1-启用
      */
     private Integer status;
 
-
     /**
      * 联系电话
      */
     private String mobile;
 
-
     /**
      * 邮箱
      */
     private String email;
-
 
     /**
      * 联系地址
@@ -108,6 +106,15 @@ public class CompanyVO implements Serializable {
      */
     private Integer sort;
 
+    /**
+     * 公司招聘介绍
+     */
+    private String recruitmentDes;
+
+    /**
+     * 旧 CMS _id
+     */
+    private String sourceId;
 
     /**
      * 创建时间

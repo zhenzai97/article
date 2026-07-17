@@ -61,6 +61,11 @@ public class CompanyUpdateRequest implements Serializable {
 
 
     /**
+     * 性别：0未知 1男 2女（个人会员）
+     */
+    private Integer sex;
+
+    /**
      * 审核状态（0 待审核  1已通过  2已拒绝）
      */
     private Integer examineStatus ;
@@ -112,4 +117,9 @@ public class CompanyUpdateRequest implements Serializable {
      * 排序
      */
     private Integer sort;
+
+    /**
+     * 公司招聘介绍
+     */
+    private String recruitmentDes;
 }
