@@ -72,6 +72,11 @@ public class RecruitmentVO implements Serializable {
     private String employeeWelfare;
 
     /**
+     * 应聘人数（仅 VO，不落库）
+     */
+    private Long applicantCount;
+
+    /**
      * 创建人 id
      */
     private Long createUserId;

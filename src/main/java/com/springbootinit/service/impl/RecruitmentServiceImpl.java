@@ -12,6 +12,7 @@ import com.springbootinit.model.dto.recruitment.RecruitmentQueryRequest;
 import com.springbootinit.model.entity.Company;
 import com.springbootinit.model.entity.Recruitment;
 import com.springbootinit.model.vo.RecruitmentVO;
+import com.springbootinit.service.ApplicantService;
 import com.springbootinit.service.CompanyService;
 import com.springbootinit.service.RecruitmentService;
 import javax.annotation.Resource;
@@ -19,9 +20,11 @@ import javax.annotation.Resource;
 import com.springbootinit.utils.SqlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +32,10 @@ public class RecruitmentServiceImpl extends ServiceImpl<RecruitmentMapper,Recrui
 
     @Resource
     private CompanyService companyService;
+
+    @Lazy
+    @Resource
+    private ApplicantService applicantService;
 
     @Override
     public void validRecruitment(Recruitment recruitment, boolean add){
@@ -100,6 +107,13 @@ public class RecruitmentServiceImpl extends ServiceImpl<RecruitmentMapper,Recrui
         }
         RecruitmentVO recruitmentVO = new RecruitmentVO();
         BeanUtils.copyProperties(recruitment, recruitmentVO);
+        if (recruitment.getId() != null) {
+            Map<Long, Long> countMap = applicantService.countByRecruitmentIds(
+                    java.util.Collections.singletonList(recruitment.getId()));
+            recruitmentVO.setApplicantCount(countMap.getOrDefault(recruitment.getId(), 0L));
+        } else {
+            recruitmentVO.setApplicantCount(0L);
+        }
         return recruitmentVO;
     }
 
@@ -111,7 +125,14 @@ public class RecruitmentServiceImpl extends ServiceImpl<RecruitmentMapper,Recrui
        if(CollUtil.isEmpty(recruitmentList)){
            return recruitmentVOPage;
        }
-        List<RecruitmentVO> recruitmentVOList = recruitmentList.stream().map(this::getRecruitmentVO).collect(Collectors.toList());
+        List<Long> ids = recruitmentList.stream().map(Recruitment::getId).collect(Collectors.toList());
+        Map<Long, Long> countMap = applicantService.countByRecruitmentIds(ids);
+        List<RecruitmentVO> recruitmentVOList = recruitmentList.stream().map(item -> {
+            RecruitmentVO vo = new RecruitmentVO();
+            BeanUtils.copyProperties(item, vo);
+            vo.setApplicantCount(countMap.getOrDefault(item.getId(), 0L));
+            return vo;
+        }).collect(Collectors.toList());
         recruitmentVOPage.setRecords(recruitmentVOList);
         return  recruitmentVOPage;
     }
